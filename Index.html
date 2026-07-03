@@ -1,0 +1,142 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unified Core Workspace - Production Interface</title>
+  <!-- Stylesheet explicitly omitted per scope restrictions (forbidden: styles.css, main.js) -->
+</head>
+<body>
+
+  <!-- Global Application Shell representing the 3-Panel Viewport Hierarchy -->
+  <div id="app-shell" class="desktop-layout-row" data-active-mobile-view="CANVAS">
+    
+    <!-- HEADER CANVAS (Mobile Navigation & Context Orchestration) -->
+    <header id="global-header">
+      <div class="brand-container">
+        <span class="system-id">ARCH-SPEC-2026-V1</span>
+        <span class="security-tag">CONFIDENTIAL</span>
+      </div>
+      <div class="mobile-controls">
+        <button id="toggle-sidebar" aria-label="Toggle Spatial Sidebar" aria-expanded="false">☰</button>
+        <nav class="view-orchestrator-tabs">
+          <button data-target-view="MAP" class="tab-btn">Environment Map</button>
+          <button data-target-view="CANVAS" class="tab-btn active">Interaction Canvas</button>
+          <button data-target-view="INSPECTOR" class="tab-btn">Telemetry Inspector</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- PANEL 1: SPATIAL SIDEBAR (W_sb = 20%) -->
+    <aside id="spatial-sidebar" class="desktop-panel-cell" aria-label="Environment Navigation Stack">
+      <div class="panel-header">
+        <h2>Spatial Navigation</h2>
+      </div>
+      <!-- Graph Node List Container -->
+      <nav class="node-hierarchy-stack" id="node-navigation-list">
+        <!-- Room Node Fragment Example -->
+        <button class="node-element transition-target" data-node-id="kids-room-a" data-auth-role="PUBLIC" aria-disabled="false">
+          <span class="node-indicator status-online"></span>
+          <span class="node-label">Kids Room A</span>
+        </button>
+        
+        <!-- Shared Space Node Fragment Example -->
+        <button class="node-element transition-target" data-node-id="jukebox" data-auth-role="AUTHENTICATED" data-locked="true" aria-disabled="true">
+          <span class="node-indicator status-locked"></span>
+          <span class="node-label">Jukebox Terminal</span>
+          <span class="lock-icon" aria-hidden="true">🔒</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- PANEL 2: PRIMARY INTERACTION CANVAS (W_canvas = 55%) -->
+    <main id="primary-interaction-canvas" class="desktop-panel-cell" aria-live="polite">
+      <div class="panel-header">
+        <h2>Context Message Stream</h2>
+        <div id="ambient-cat-status" aria-live="off" data-state="SLEEPING">
+          Ambient Entity: <span class="status-value">Sleeping</span>
+        </div>
+      </div>
+
+      <!-- Chronological High-Frequency Message Container -->
+      <section class="message-stream-container" id="message-stream-buffer">
+        <div class="system-announcement transition-alert" data-event-type="INIT">
+          <p>System Engine initialized successfully. Unidirectional data-flow active.</p>
+        </div>
+        <!-- Streamed text fragments inject dynamically here -->
+      </section>
+
+      <!-- User Input Engine Section -->
+      <section class="input-engine-footer">
+        <form id="prompt-submission-form" action="#" method="POST">
+          <div class="input-wrapper">
+            <label for="user-prompt-input" class="visually-hidden">Submit prompt payload</label>
+            <textarea 
+              id="user-prompt-input" 
+              name="prompt" 
+              placeholder="Enter raw text prompt to interleave with Goggles..." 
+              required
+              rows="2"
+            ></textarea>
+            <button type="submit" id="submit-prompt-btn">Dispatch Payload</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- PANEL 3: GOGGLES DRAWER (W_drawer = 25%) -->
+    <section id="goggles-drawer" class="desktop-panel-cell goggles-drawer-mobile-hidden" aria-label="Telemetry Inspector Drawer">
+      <div class="panel-header">
+        <h2>Telemetry Inspector</h2>
+      </div>
+      
+      <!-- Static Performance Metrics Meta Box -->
+      <div class="telemetry-metadata-box">
+        <div class="meta-row">
+          <span class="meta-label">Active Lens:</span>
+          <strong id="meta-active-lens">STATE-TRANSITION MAPPING</strong>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Active Goggles:</span>
+          <strong id="meta-active-goggles">STRUCTURAL COMPONENTIST</strong>
+        </div>
+      </div>
+
+      <!-- Live Script Compilation Box & Prompt Overlay Layout -->
+      <div class="drawer-section-wrapper">
+        <h3>Compiled System Prompt Blob</h3>
+        <div class="code-view-container">
+          <pre><code id="compiled-prompt-display"><!-- Shallow-equality un-truncated system data injects here --></code></pre>
+        </div>
+      </div>
+
+      <!-- Telemetry Graph Data Diagnostics Block -->
+      <div class="drawer-section-wrapper">
+        <h3>Performance Metrics</h3>
+        <div class="metrics-grid" id="telemetry-metrics-display">
+          <div class="metric-card">
+            <span class="metric-title">TTFT</span>
+            <span class="metric-value" id="metric-ttft">-- ms</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Tokens/Sec</span>
+            <span class="metric-value" id="metric-tps">--</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISTRIBUTED AMBIENT NOTIFICATION POP-UP CONTAINER -->
+    <div id="ambient-toast-bus" aria-live="assertive" aria-atomic="true">
+      <!-- Ambient alert assets slice into view and auto-dispose asynchronously here -->
+    </div>
+
+  </div>
+
+  <!-- Scripts explicitly omitted per scope restrictions (forbidden: styles.css, main.js) -->
+</body>
+</html>
+
+```
+  
