@@ -1,0 +1,265 @@
+```css
+/* ==========================================================================
+   UNIFIED CORE ARCHITECTURE & UX SPECIFICATION - STYLES.CSS
+   Field: Perceptual Ergonomist | Lens: Latency-Budget Forensics
+   ========================================================================== */
+
+/* --- Custom Architectural Variables & Theme System --- */
+:root {
+  --w-sb: 20vw;
+  --w-canvas: 55vw;
+  --w-drawer: 25vw;
+  
+  --bg-primary: #0f111a;
+  --bg-surface: #171a26;
+  --bg-surface-elevated: #202438;
+  
+  --text-primary: #f0f2f5;
+  --text-muted: #8a93b2;
+  --accent-primary: #00e676;
+  --accent-warn: #ff3d00;
+  
+  --font-mono: 'Courier New', Courier, monospace;
+}
+
+/* --- Base Layout Rules & Viewport Layering --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* --- 3-Panel Grid Compositing Hierarchy --- */
+.desktop-layout-row {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background-color: var(--bg-primary);
+}
+
+.desktop-panel-cell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  will-change: transform;
+}
+
+/* Panel 1: Spatial Sidebar (W_sb = 20%) */
+#spatial-sidebar {
+  width: var(--w-sb);
+  flex-shrink: 0;
+}
+
+/* Panel 2: Primary Interaction Canvas (W_canvas = 55%) */
+#primary-canvas {
+  width: var(--w-canvas);
+  flex-shrink: 0;
+  background-color: var(--bg-primary);
+}
+
+/* Panel 3: Goggles Drawer (W_drawer = 25%) */
+#goggles-drawer {
+  width: var(--w-drawer);
+  flex-shrink: 0;
+  border-right: none;
+}
+
+/* --- Performance Scannability & Scroll Clamping --- */
+.panel-header, .canvas-header {
+  height: 60px;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-surface-elevated);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.scrollable-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* --- Core Interactive Canvas Elements --- */
+#message-stream-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.input-engine-footer {
+  padding: 1rem;
+  background-color: var(--bg-surface);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+textarea {
+  flex-grow: 1;
+  background-color: var(--bg-primary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  padding: 0.75rem;
+  border-radius: 4px;
+  resize: none;
+}
+
+button {
+  background-color: var(--accent-primary);
+  color: #000;
+  border: none;
+  padding: 0 1.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* --- Telemetry Layer & Code Blocks --- */
+.telemetry-card {
+  background-color: var(--bg-surface-elevated);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+pre {
+  background-color: var(--bg-primary);
+  padding: 0.75rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.metrics-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+}
+
+.metrics-list dt {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.metrics-list dd {
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+/* --- 8. Distributed Ambient Toast Bus Animation Layer --- */
+#ambient-toast-bus {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.ambient-toast {
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  border-left: 4px solid var(--accent-primary);
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  min-width: 300px;
+  
+  /* Performance Mandate: Enforce GPU compositing layer acceleration */
+  will-change: transform, opacity;
+  animation: toastEntrance 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastEntrance {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --- 5. Mobile Viewport Adaptive Degradation Definitions --- */
+#mobile-menu-trigger, #mobile-inspector-trigger {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  #mobile-menu-trigger, #mobile-inspector-trigger {
+    display: block;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    padding: 0.5rem;
+  }
+
+  .desktop-layout-row {
+    display: block !important;
+  }
+  
+  .desktop-panel-cell {
+    display: none !important;
+    width: 100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+  }
+
+  /* Structural Orchestration via application state routing hooks */
+  [data-mobile-view='MAP'] #spatial-sidebar {
+    display: flex !important;
+  }
+
+  [data-mobile-view='CANVAS'] #primary-canvas {
+    display: flex !important;
+    position: relative;
+    width: 100% !important;
+  }
+
+  [data-mobile-view='INSPECTOR'] #goggles-drawer {
+    display: flex !important;
+    width: 100% !important;
+    z-index: 20;
+    transform: translateY(0);
+  }
+
+  .goggles-drawer-mobile-hidden {
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+```
